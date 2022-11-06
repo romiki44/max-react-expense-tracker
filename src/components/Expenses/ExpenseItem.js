@@ -12,7 +12,7 @@ const ExpenseItem = (props) => {
   //props.title je nastavena len pri inicializacii....potom uz obsahuje akt. stav...hmm, toto mi nie je uplne jasne :(
   //p.s. setState() nemusime volat len rpi click-evente....mozeme ho volat hocikde...vysledok bude vzdy ten isty..re-rendering!
   const [title, setTitle] = useState(props.title);
-  console.log('ExpenseItem re-evalueted!');
+  //console.log('ExpenseItem re-evalueted!');
 
   const clickHandler = () => {
     //cisto len zmena premenenej nenastartuje re-redenreding componentu!!
