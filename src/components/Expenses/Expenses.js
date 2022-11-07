@@ -5,11 +5,27 @@ import './Expenses.css';
 import { useState } from 'react';
 
 const Expenses = (props) => {
-  const [filteredYear, setFilteredYear] = useState('2020');
+  const [filteredYear, setFilteredYear] = useState('2021');
+  // const [filteredExpenses, setFilteredExpenses] = useState(
+  //   props.items.filter((item) => item.date.getFullYear().toString() === '2021')
+  // );
+
+  //dalo sa to aj cez useState(), ale stacilo aj takto...
+  //...ide iba o renderovanie dat, nie o zachovanie stavu dat
+  //(neuvedomil som si, ze potrebujem iba filteredYear a ten mam ako State!!)
+  const filteredExpenses = props.items.filter(
+    (item) => item.date.getFullYear().toString() === filteredYear
+  );
 
   const filterChangeHandler = (selectedYear) => {
     setFilteredYear(selectedYear);
     console.log('expenseFilter', selectedYear, filteredYear);
+    // setFilteredExpenses(() =>
+    //   props.items.filter((item) => {
+    //     return item.date.getFullYear().toString() === selectedYear;
+    //   })
+    // );
+    console.log(filteredExpenses);
   };
 
   return (
@@ -18,26 +34,14 @@ const Expenses = (props) => {
         selected={filteredYear}
         onFilterByYear={filterChangeHandler}
       />
-      <ExpenseItem
-        date={props.items[0].date}
-        title={props.items[0].title}
-        amount={props.items[0].amount}
-      />
-      <ExpenseItem
-        date={props.items[1].date}
-        title={props.items[1].title}
-        amount={props.items[1].amount}
-      />
-      <ExpenseItem
-        date={props.items[2].date}
-        title={props.items[2].title}
-        amount={props.items[2].amount}
-      />
-      <ExpenseItem
-        date={props.items[3].date}
-        title={props.items[3].title}
-        amount={props.items[3].amount}
-      />
+      {filteredExpenses.map((item) => (
+        <ExpenseItem
+          key={item.id}
+          date={item.date}
+          title={item.title}
+          amount={item.amount}
+        />
+      ))}
     </Card>
   );
 };
