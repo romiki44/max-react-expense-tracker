@@ -3,6 +3,7 @@ import ExpensesFilter from './ExpensesFilter';
 import './Expenses.css';
 import { useState } from 'react';
 import ExpensesList from './ExpensesList';
+import ExpensesChart from './ExpensesChart';
 
 const Expenses = (props) => {
   const [filteredYear, setFilteredYear] = useState('2021');
@@ -19,7 +20,7 @@ const Expenses = (props) => {
 
   const filterChangeHandler = (selectedYear) => {
     setFilteredYear(selectedYear);
-    console.log('expenseFilter', selectedYear, filteredYear);
+    //console.log('expenseFilter', selectedYear, filteredYear);
     // setFilteredExpenses(() =>
     //   props.items.filter((item) => {
     //     return item.date.getFullYear().toString() === selectedYear;
@@ -29,7 +30,7 @@ const Expenses = (props) => {
   };
 
   //da sa pouzit klasicky cez ternary operator, alebo ako Max cez &&...vrati druhy clen ak obidva true
-  //moze byt priamo vo vyraze, alebo ako samostatna premenna...lepsie takto kvoli prehladu 
+  //moze byt priamo vo vyraze, alebo ako samostatna premenna...lepsie takto kvoli prehladu
   //pozor, premenna v reacte moze obsahovat jsx-code, kvazi html kod!
   //NAKONIEC SME TO UROBILI V SAMOSTANOM KOMPONENTE!!!
   /* let expensesContent=<p>No expenses found</p>;
@@ -43,14 +44,15 @@ const Expenses = (props) => {
       />
     ))
   } */
-  
+
   return (
     <Card className='expenses'>
       <ExpensesFilter
         selected={filteredYear}
         onFilterByYear={filterChangeHandler}
       />
-      <ExpensesList items={filteredExpenses}/>
+      <ExpensesChart expenses={filteredExpenses} />
+      <ExpensesList items={filteredExpenses} />
     </Card>
   );
 };
